@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Bala Kumar | Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --cream: #f5f0e8;
+    --dark: #1a1209;
+    --gold: #c9a84c;
+    --gold-light: #e8d5a0;
+    --rust: #b85c2c;
+    --text: #2e2212;
+    --muted: #7a6a50;
+    --card-bg: #fffdf7;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(245,240,232,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--gold-light);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 900;
+    color: var(--dark);
+    letter-spacing: 0.05em;
+  }
+  .nav-logo span { color: var(--gold); }
+
+  nav ul { list-style: none; display: flex; gap: 2rem; }
+  nav ul a {
+    text-decoration: none;
+    font-size: 0.85rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted);
+    transition: color 0.3s;
+  }
+  nav ul a:hover { color: var(--gold); }
+
+  
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 3rem 4rem;
+    gap: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; top: -100px; right: -100px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.75rem; font-weight: 500;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 0.35rem 0.9rem;
+    border-radius: 2rem;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--dark);
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+  .hero h1 .accent { color: var(--gold); }
+
+  .hero-sub {
+    margin-top: 1.2rem;
+    font-size: 1.1rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 480px;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+
+  .hero-cta {
+    margin-top: 2.5rem;
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+
+  .btn {
+    padding: 0.85rem 2rem;
+    border-radius: 3rem;
+    font-size: 0.9rem; font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--dark);
+  }
+  .btn-primary:hover { background: #b8973c; transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1.5px solid var(--gold-light);
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  .hero-info {
+    display: flex; gap: 2rem; margin-top: 3rem;
+    animation: fadeUp 0.7s 0.4s ease both;
+  }
+  .info-item { display: flex; flex-direction: column; }
+  .info-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 900; color: var(--gold);
+  }
+  .info-label { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.05em; }
+
+  
+  .hero-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeLeft 0.8s 0.2s ease both;
+  }
+
+  .profile-card {
+    background: var(--card-bg);
+    border: 1px solid var(--gold-light);
+    border-radius: 2rem;
+    padding: 2.5rem;
+    max-width: 360px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    position: relative;
+  }
+
+  .profile-card::after {
+    content: '';
+    position: absolute; inset: -8px;
+    border: 1px dashed var(--gold-light);
+    border-radius: 2.5rem;
+    pointer-events: none;
+  }
+
+  .profile-avatar {
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    border: 3px solid var(--gold);
+    object-fit: cover;
+    margin-bottom: 1.2rem;
+    background: var(--gold-light);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 900;
+    color: var(--gold);
+    overflow: hidden;
+  }
+
+  .profile-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 700; color: var(--dark);
+  }
+  .profile-role { font-size: 0.85rem; color: var(--muted); margin: 0.3rem 0 1rem; }
+
+  .profile-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+  .tag {
+    font-size: 0.72rem; font-weight: 500;
+    padding: 0.3rem 0.7rem;
+    border-radius: 2rem;
+    background: rgba(201,168,76,0.12);
+    color: var(--rust);
+    letter-spacing: 0.04em;
+  }
+
+  .profile-contacts { display: flex; flex-direction: column; gap: 0.5rem; }
+  .contact-row {
+    display: flex; align-items: center; gap: 0.6rem;
+    font-size: 0.82rem; color: var(--muted);
+  }
+  .contact-row .icon { color: var(--gold); font-size: 1rem; }
+
+  
+  section { padding: 6rem 3rem; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 500;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900; color: var(--dark);
+    margin-bottom: 3rem;
+  }
+
+  .divider {
+    width: 60px; height: 3px;
+    background: var(--gold);
+    margin: 1rem 0 3rem;
+    border-radius: 2px;
+  }
+
+  
+  #experience { background: var(--dark); }
+  #experience .section-title { color: var(--cream); }
+  #experience .section-label { color: var(--gold); }
+
+  .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+
+  .exp-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 1.5rem;
+    padding: 2.2rem;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .exp-card:hover { transform: translateY(-4px); border-color: var(--gold); }
+
+  .exp-period {
+    font-size: 0.75rem; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.8rem;
+  }
+  .exp-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; font-weight: 700; color: #f5f0e8;
+    margin-bottom: 0.3rem;
+  }
+  .exp-company { font-size: 0.9rem; color: rgba(245,240,232,0.5); margin-bottom: 1.2rem; }
+
+  .exp-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .exp-list li {
+    font-size: 0.85rem; color: rgba(245,240,232,0.7);
+    padding-left: 1.2rem;
+    position: relative; line-height: 1.5;
+  }
+  .exp-list li::before {
+    content: '→';
+    position: absolute; left: 0;
+    color: var(--gold);
+    font-size: 0.8rem;
+  }
+
+  
+  #skills { background: var(--cream); }
+
+  .skills-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+
+  .skill-group { margin-bottom: 2rem; }
+  .skill-group-title {
+    font-size: 0.8rem; font-weight: 500;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 1rem;
+  }
+
+  .skill-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .skill-pill {
+    font-size: 0.85rem; font-weight: 500;
+    padding: 0.5rem 1.1rem;
+    border-radius: 2rem;
+    background: var(--card-bg);
+    border: 1.5px solid var(--gold-light);
+    color: var(--text);
+    transition: all 0.25s;
+  }
+  .skill-pill:hover { background: var(--gold); color: var(--dark); border-color: var(--gold); }
+
+  .cert-cards { display: flex; flex-direction: column; gap: 1rem; }
+  .cert-card {
+    background: var(--card-bg);
+    border: 1px solid var(--gold-light);
+    border-left: 4px solid var(--gold);
+    border-radius: 0.75rem;
+    padding: 1rem 1.2rem;
+    font-size: 0.88rem; color: var(--text);
+    transition: box-shadow 0.25s;
+  }
+  .cert-card:hover { box-shadow: 0 6px 20px rgba(201,168,76,0.15); }
+
+  
+  #education { background: #f0ebe0; }
+
+  .edu-timeline { position: relative; padding-left: 2rem; }
+  .edu-timeline::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+
+  .edu-item {
+    position: relative;
+    margin-bottom: 3rem;
+    padding-left: 1.5rem;
+  }
+  .edu-item::before {
+    content: '';
+    position: absolute; left: -2.4rem; top: 0.35rem;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 3px solid var(--cream);
+    box-shadow: 0 0 0 2px var(--gold);
+  }
+
+  .edu-year {
+    font-size: 0.75rem; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.4rem;
+  }
+  .edu-degree {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-weight: 700; color: var(--dark);
+    margin-bottom: 0.2rem;
+  }
+  .edu-school { font-size: 0.9rem; color: var(--muted); }
+
+  
+  #languages { background: var(--dark); }
+  #languages .section-title { color: var(--cream); }
+  #languages .section-label { color: var(--gold); }
+
+  .lang-grid { display: flex; gap: 2rem; flex-wrap: wrap; }
+
+  .lang-card {
+    flex: 1; min-width: 180px;
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 1.2rem;
+    padding: 2rem;
+    text-align: center;
+    background: rgba(255,255,255,0.03);
+    transition: all 0.3s;
+  }
+  .lang-card:hover {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.05);
+    transform: translateY(-4px);
+  }
+
+  .lang-flag { font-size: 2.5rem; margin-bottom: 0.8rem; display: block; }
+  .lang-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-weight: 700; color: #f5f0e8;
+    margin-bottom: 0.3rem;
+  }
+  .lang-level { font-size: 0.78rem; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; }
+
+  
+  footer {
+    background: var(--dark);
+    border-top: 1px solid rgba(201,168,76,0.15);
+    padding: 2rem 3rem;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-weight: 900;
+    color: var(--cream);
+  }
+  .footer-name span { color: var(--gold); }
+  footer p { font-size: 0.8rem; color: rgba(245,240,232,0.35); }
+
+  
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeLeft {
+    from { opacity: 0; transform: translateX(30px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  
+  @media(max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    nav ul { gap: 1.2rem; }
+    .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; gap: 2.5rem; }
+    .hero-right { justify-content: flex-start; }
+    .exp-grid { grid-template-columns: 1fr; }
+    .skills-layout { grid-template-columns: 1fr; }
+    section { padding: 4rem 1.5rem; }
+    footer { padding: 1.5rem; }
+  }
+
+  @media(max-width: 600px) {
+    nav ul { display: none; }
+    .hero h1 { font-size: 2.6rem; }
+    .profile-card { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+
+<nav>
+  <div class="nav-logo">BK<span>.</span></div>
+  <ul>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#languages">Languages</a></li>
+  </ul>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Available for Opportunities</div>
+    <h1>Bala<br><span class="accent">Kumar</span></h1>
+    <p class="hero-sub">
+      IT & Network Engineer turned Customer Relations professional — bridging technology and people with over 4 years of experience across insurance, hospitality, and software support.
+    </p>
+    <div class="hero-cta">
+      <a href="mailto:baladurai165@gmail.com" class="btn btn-primary">Get In Touch</a>
+      <a href="#experience" class="btn btn-outline">View Experience</a>
+    </div>
+    <div class="hero-info">
+      <div class="info-item">
+        <span class="info-num">4+</span>
+        <span class="info-label">Years Experience</span>
+      </div>
+      <div class="info-item">
+        <span class="info-num">3</span>
+        <span class="info-label">Languages</span>
+      </div>
+      <div class="info-item">
+        <span class="info-num">4</span>
+        <span class="info-label">Certifications</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="profile-card">
+      <div class="profile-avatar">BK</div>
+      <div class="profile-name">Bala Kumar</div>
+      <div class="profile-role">IT Professional &amp; Customer Relations Specialist</div>
+      <div class="profile-tags">
+        <span class="tag">BTech IT</span>
+        <span class="tag">Python · Java · JS</span>
+        <span class="tag">MSSQL</span>
+        <span class="tag">CRM</span>
+        <span class="tag">SBI Life</span>
+        <span class="tag">Software Testing</span>
+      </div>
+      <div class="profile-contacts">
+        <div class="contact-row"><span class="icon">📍</span> Madurai, India</div>
+        <div class="contact-row"><span class="icon">📞</span> 9042111604</div>
+        <div class="contact-row"><span class="icon">✉️</span> baladurai165@gmail.com</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="experience">
+  <div class="section-label">Career Journey</div>
+  <div class="section-title">Work Experience</div>
+  <div class="exp-grid">
+
+    <div class="exp-card reveal">
+      <div class="exp-period">April 2021 – August 2023</div>
+      <div class="exp-title">Customer Relationship Officer</div>
+      <div class="exp-company">State Bank of India (SBI) Life Insurance — Chennai, Tamil Nadu</div>
+      <ul class="exp-list">
+        <li>Researched and resolved customer and policyholder telephonic concerns in real time</li>
+        <li>Provided detailed information on claims, policy changes, benefits, and payment methods</li>
+        <li>Collected, documented, and entered data across multiple applications</li>
+        <li>Guided customers through claim procedures with clear next-step instructions</li>
+        <li>Consistently met or exceeded KPIs including quality scores and service levels</li>
+        <li>Supported process improvements and provided feedback to leadership</li>
+      </ul>
+    </div>
+
+    <div class="exp-card reveal">
+      <div class="exp-period">March 2024 – November 2025</div>
+      <div class="exp-title">Cashier &amp; Front-of-House</div>
+      <div class="exp-company">Pulusu Restaurant — Dubai, UAE</div>
+      <ul class="exp-list">
+        <li>Managed front-of-house service and delivered warm guest experiences</li>
+        <li>Accurately processed cash and digital transactions in a high-pressure dining environment</li>
+        <li>Handled order management and collaborated with kitchen and service teams</li>
+        <li>Built strong customer rapport and maintained service quality standards</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+
+<section id="skills">
+  <div class="section-label">What I Bring</div>
+  <div class="section-title">Skills &amp; Certifications</div>
+  <div class="divider"></div>
+  <div class="skills-layout">
+    <div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Programming Languages</div>
+        <div class="skill-pills">
+          <span class="skill-pill">Python</span>
+          <span class="skill-pill">Java</span>
+          <span class="skill-pill">JavaScript</span>
+          <span class="skill-pill">HTML</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Database</div>
+        <div class="skill-pills">
+          <span class="skill-pill">MS SQL</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Interests &amp; Domains</div>
+        <div class="skill-pills">
+          <span class="skill-pill">Software Testing</span>
+          <span class="skill-pill">App Support</span>
+          <span class="skill-pill">Insurance CRM</span>
+          <span class="skill-pill">IT Helpdesk</span>
+          <span class="skill-pill">Network Support</span>
+          <span class="skill-pill">Medical Coding</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="skill-group-title" style="margin-bottom:1rem;">Certifications &amp; Achievements</div>
+      <div class="cert-cards">
+        <div class="cert-card reveal">🎓 Android Development — Udemy</div>
+        <div class="cert-card reveal">🌟 Magic Bus — Life Skills &amp; Employability Skills</div>
+        <div class="cert-card reveal">💡 NIIT — Basic IT, Spoken English &amp; Personality Development</div>
+        <div class="cert-card reveal">🏆 Microsoft Certified — MS Office, PowerPoint, Excel, Teams, OneDrive</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="education">
+  <div class="section-label">Academic Background</div>
+  <div class="section-title">Education</div>
+  <div class="divider"></div>
+  <div class="edu-timeline">
+    <div class="edu-item reveal">
+      <div class="edu-year">2015 – 2019</div>
+      <div class="edu-degree">BTech — Information Technology</div>
+      <div class="edu-school">RMD Engineering College, Anna University — Tamil Nadu</div>
+    </div>
+    <div class="edu-item reveal">
+      <div class="edu-year">2014 – 2015</div>
+      <div class="edu-degree">HSC (Higher Secondary Certificate)</div>
+      <div class="edu-school">Bharathi Matric Higher Secondary — Tamil Nadu</div>
+    </div>
+  </div>
+</section>
+
+
+<section id="languages">
+  <div class="section-label">Communication</div>
+  <div class="section-title">Languages</div>
+  <div class="lang-grid">
+    <div class="lang-card reveal">
+      <span class="lang-flag">🇬🇧</span>
+      <div class="lang-name">English</div>
+      <div class="lang-level">Proficient</div>
+    </div>
+    <div class="lang-card reveal">
+      <span class="lang-flag">🇮🇳</span>
+      <div class="lang-name">Tamil</div>
+      <div class="lang-level">Native</div>
+    </div>
+    <div class="lang-card reveal">
+      <span class="lang-flag">🇮🇳</span>
+      <div class="lang-name">Malayalam</div>
+      <div class="lang-level">Proficient</div>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  <div class="footer-name">Bala<span>Kumar</span></div>
+  <p>© 2026 · Madurai, India · baladurai165@gmail.com</p>
+</footer>
+
+<script>
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
